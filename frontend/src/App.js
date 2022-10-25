@@ -1,17 +1,21 @@
+
 import './App.css';
+import { AllRouters } from './components/AllRoutes/AllRouters';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
-import { LandingPage } from './screens/LandingPage/LandingPage';
+
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
+    <>
+    <Header/>
       <main>
-        <LandingPage/>
+        <AllRouters/>
       </main>
-      <Footer/>
-    </div>
+    <Footer/>
+    </>
+      
+    
   );
 }
 
