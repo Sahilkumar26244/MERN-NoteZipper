@@ -15,22 +15,16 @@ export const LoginScreen = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        console.log(email,password)
+        // console.log(email,password)
         try {
-            const config = {
-                headers:{
-                    "Content-type":"application/json"
-                }
-            };
+            
             setLoading(true);
 
             const {data} = await axios.post("/api/users/login",
             {
                 email,
                 password,
-            },
-            config
-            );
+            });
 
             console.log(data);
             localStorage.setItem('userInfo', JSON.stringify(data))
