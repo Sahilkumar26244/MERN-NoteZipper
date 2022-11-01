@@ -1,7 +1,9 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, FormGroup, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { register } from '../../actions/userActions'
 import { ErrorMessage } from '../../components/ErrorMessage'
 import { Loading } from '../../components/Loading'
 import { MainScreen } from '../../components/MainScreen'
@@ -16,27 +18,44 @@ export const RegisterScreen = () => {
   const [confirmPassword,setConfirmPassword] = useState("");
   const [message,setMessage] = useState(null);
   const [picMessage,setPicMessage] = useState(null);
-  const [error,setError] = useState(false);
-  const [loading,setLoading] = useState(false);
+  // const [error,setError] = useState(false);
+  // const [loading,setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const userRegister = useSelector((state) => state.userRegister)
+  const {loading,error,userInfo} = userRegister;
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if(userInfo) {
+      navigate("/mynotes");
+    }
+  },[userInfo])
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if(password !== confirmPassword) {
-      setMessage("Password Do not match")
-    }else{
-      setMessage(null);
-      try {
+    // if(password !== confirmPassword) {
+    //   setMessage("Password Do not match")
+    // }else{
+    //   setMessage(null);
+    //   try {
         
-        setLoading(true)
-        const {data} = await axios.post("/api/users",{name,pic,email,password});
-        setLoading(false);
-        localStorage.setItem("userInfo" , JSON.stringify(data));
-        console.log(data,"sahil")
-      } catch (error) {
-        setError(error.response.data.message);
-      }
-    }
+    //     setLoading(true)
+    //     const {data} = await axios.post("/api/users",{name,pic,email,password});
+    //     setLoading(false);
+    //     localStorage.setItem("userInfo" , JSON.stringify(data));
+    //     // console.log(data,"sahil")
+    //   } catch (error) {
+    //     setError(error.response.data.message);
+    //   }
+    // }
     // console.log(email)
+    if(password !== confirmPassword) {
+      setMessage("Passowrd do not match")
+    }else {
+      dispatch(register(name,email,password,pic));
+
+    }
   };
 
   const postDetails = (pics) => {
@@ -55,7 +74,7 @@ export const RegisterScreen = () => {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setPic(data.url.toString());
       })
       .catch((err)=>{
