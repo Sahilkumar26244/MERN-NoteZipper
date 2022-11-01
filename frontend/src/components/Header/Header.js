@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link , useNavigate } from 'react-router-dom';
 import { logout } from '../../actions/userActions';
 
-export const Header = () => {
+export const Header = ({setSearch}) => {
   const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
   const {userInfo} = userLogin;
@@ -36,32 +36,39 @@ export const Header = () => {
         <Nav className='m-auto' >
             <Form className="d-flex">
             <Form.Control
-            type="search"
+            type="text"
             placeholder="Search"
             className="me-2"
             aria-label="Search"
+            onChange={(e) => setSearch(e.target.value)}
             />
             </Form>
         </Nav>
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
+        {userInfo ? (<Nav>
+          
+          
             <Nav.Link>
             <Link to='/mynotes'>
               My Notes
             </Link>
            </Nav.Link>
             
-            <NavDropdown title="Sahil Kumar" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+            <NavDropdown title={userInfo?.name} id="navbarScrollingDropdown">
+              <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={logoutHandler}>
                 Logout
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          ):(
+            <Nav>
+            {" "}
+            <Nav.Link>
+              <Link to="/login" >Login</Link>
+            </Nav.Link>
+          </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

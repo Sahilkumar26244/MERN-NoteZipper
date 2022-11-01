@@ -4,16 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import "./LandingPage.css";
 
 export const LandingPage = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     
-    // useEffect(() => {
-    //     const userInfo = localStorage.getItem("userInfo");
-    //     if(userInfo){
-    //         navigate("/mynotes")
-    //     }
+    useEffect(() => {
+        const userInfo = localStorage.getItem("userInfo");
+        if(userInfo){
+            navigate("/mynotes")
+        }
         
-    // },[]);
+    },[navigate]);
 
 
   return (
