@@ -15,6 +15,10 @@ dotenv.config();
 connectDB();
 app.use(express.json());
 
+app.use("/" , (req,res) => {
+    res.send("Welcome")
+})
+
 
 
 app.use('/api/users', userRoutes);
