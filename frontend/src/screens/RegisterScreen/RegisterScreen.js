@@ -18,8 +18,8 @@ export const RegisterScreen = () => {
   const [confirmPassword,setConfirmPassword] = useState("");
   const [message,setMessage] = useState(null);
   const [picMessage,setPicMessage] = useState(null);
-  // const [error,setError] = useState(false);
-  // const [loading,setLoading] = useState(false);
+  const [error1,setError] = useState(false);
+  const [loading1,setLoading] = useState(false);
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister)
   const {loading,error,userInfo} = userRegister;
@@ -34,22 +34,22 @@ export const RegisterScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // if(password !== confirmPassword) {
-    //   setMessage("Password Do not match")
-    // }else{
-    //   setMessage(null);
-    //   try {
+    if(password !== confirmPassword) {
+      setMessage("Password Do not match")
+    }else{
+      setMessage(null);
+      try {
         
-    //     setLoading(true)
-    //     const {data} = await axios.post("/api/users",{name,pic,email,password});
-    //     setLoading(false);
-    //     localStorage.setItem("userInfo" , JSON.stringify(data));
-    //     // console.log(data,"sahil")
-    //   } catch (error) {
-    //     setError(error.response.data.message);
-    //   }
-    // }
-    // console.log(email)
+        setLoading(true)
+        const {data} = await axios.post("https://mern-notezipper.onrender.com/api/users",{name,pic,email,password});
+        setLoading(false);
+        localStorage.setItem("userInfo" , JSON.stringify(data));
+        // console.log(data,"sahil")
+      } catch (error) {
+        setError(error.response.data.message);
+      }
+    }
+    console.log(email)
     if(password !== confirmPassword) {
       setMessage("Passowrd do not match")
     }else {
@@ -89,7 +89,7 @@ export const RegisterScreen = () => {
   return (
     <MainScreen title="REGISTER" >
       <div className='loginContainer' >
-      {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
+      {error1 && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
       {message && <ErrorMessage variant='danger'>{message}</ErrorMessage>}
       {loading && <Loading/>}
         <Form onSubmit={submitHandler} >

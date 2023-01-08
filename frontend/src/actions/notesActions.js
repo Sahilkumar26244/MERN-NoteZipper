@@ -15,7 +15,7 @@ export const listNotes = () => async (dispatch , getState) => {
             },
         }
 
-        const {data} = await axios.get(`/api/notes` , config);
+        const {data} = await axios.get(`https://mern-notezipper.onrender.com/api/notes` , config);
 
         dispatch({
             type : NOTE_LIST_SUCCESS,
@@ -47,7 +47,7 @@ export const createNoteAction = (title,content,category) => async (dispatch,getS
             }
         };
 
-        const {data} = await axios.post(`/api/notes/create` , {title,content,category}, config);
+        const {data} = await axios.post(`https://mern-notezipper.onrender.com/api/notes/create` , {title,content,category}, config);
 
         dispatch({type:NOTES_CREATE_SUCCESS , payload:data})
     } catch (error) {
@@ -77,7 +77,7 @@ export const updateNoteAction = (id,title,content,category) => async(dispatch,ge
             }
         };
 
-        const {data} = await axios.put(`/api/notes/${id}` , {title , content,category} , config);
+        const {data} = await axios.put(`https://mern-notezipper.onrender.com/api/notes/${id}` , {title , content,category} , config);
 
         dispatch({
             type:NOTES_UPDATE_SUCCESS,
@@ -109,7 +109,7 @@ export const deleteNoteAction = (id) => async(dispatch,getState) => {
             },
         };
 
-        const {data} = await axios.delete(`/api/notes/${id}` , config);
+        const {data} = await axios.delete(`https://mern-notezipper.onrender.com/api/notes/${id}` , config);
 
         dispatch({
             type:NOTES_DELETE_SUCCESS,
